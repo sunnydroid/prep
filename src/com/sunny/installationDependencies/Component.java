@@ -18,6 +18,8 @@ public class Component {
 	public void addUsedByComponent(Component component) {
 		if(!usedBy.contains(component)) {
 			usedBy.add(component);
+		} else {
+			Logger.log(component.getName() + " already in used by list for " + name);
 		}
 	}
 	
@@ -28,6 +30,8 @@ public class Component {
 	public void addUsesComponent(Component component) {
 		if(!uses.contains(component)) {
 			uses.add(component);
+		} else {
+			Logger.log(component.getName() + " already in uses list for " + name);
 		}
 	}
 	

@@ -1,4 +1,4 @@
-package com.sunny.intArray;
+package com.sunny.dp;
 
 import com.sunny.common.Logger;
 
@@ -10,11 +10,12 @@ import com.sunny.common.Logger;
  * output:
  * 4, 5, 4
  */
-public class ContinousSum {
+public class MaxValueContiguousSum {
 
 	public static void main(String[] args) {
 		int[] input = {-7, 1, 2, 3, -4, 5};
 		maxSubSequence(input);
+		maxSubSequence2(input);
 	}
 	/*
 	 * Algorithm: maintain a max sum, starting index for the max sum and ending index for the max sum
@@ -53,6 +54,36 @@ public class ContinousSum {
 		
 		Logger.log("Max Sum : " + maxSum);
 		for(int j = maxSumStartIndex; j <= maxSumStopIndex; j++) {
+			Logger.log(input[j] + ", ");
+		}
+	}
+	
+	public static void maxSubSequence2(int[] input) {
+		/*
+		 * You are trying to find the max sum from index i to j 
+		 * Using dynamic programming, extend the previous window or start a new window, i.e. only 
+		 * 2 cases. Runtime O(n), you have n smaller problems each of which takes 1 time.
+		 * M(j) = max{M(j-1) + A[j], A[j]}
+		 */
+		int start = 0;
+		int end = 0;
+		int maxSum = input[0];
+		
+		for(int i = 0; i < input.length; i++) {
+			if(maxSum + input[i] > input[i]) {
+				/* extend the window and include ith element as part of sequence */
+				maxSum += input[i];
+				end = i;
+			} else {
+				/* start a new window */
+				maxSum = input[i];
+				start = i;
+				end = i;
+			}
+		}
+		
+		Logger.log("Max Sum : " + maxSum);
+		for(int j = start; j <= end; j++) {
 			Logger.log(input[j] + ", ");
 		}
 	}

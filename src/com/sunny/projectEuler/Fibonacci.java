@@ -52,11 +52,33 @@ public class Fibonacci {
 	}
 	
 	public static void main(String[] args) {
-		int till = 4000000;
-		Fibonacci test = new Fibonacci();
-		long sum = test.sumEvenFibonacciNums(till);
+//		int till = 4000000;
+//		Fibonacci test = new Fibonacci();
+//		long sum = test.sumEvenFibonacciNums(till);
+//		
+//		Logger.log("Sum of even fibonnaci numbers till " + till + " = " + sum);
+		int n = 3;
+		Logger.log( n + "th element in the fibo sequence = " + fiboRecursive(n));
 		
-		Logger.log("Sum of even fibonnaci numbers till " + till + " = " + sum);
+	}
+	
+	/*
+	 * recursive implementation to find the nth element in the fibonacci sequence
+	 */
+	
+	public static int fiboRecursive(int n) {
 		
+		if(n < 0) {
+			throw new IllegalArgumentException("Invalid input '" + n + "' ");
+		}
+		if(n == 0) {
+			return 0;
+		}
+		
+		if(n == 1) {
+			return 1;
+		}
+		
+		return fiboRecursive(n - 1 ) + fiboRecursive(n - 2);
 	}
 }

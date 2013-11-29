@@ -1,5 +1,7 @@
 package com.sunny.common;
 
+import java.util.ArrayList;
+
 public class Logger {
 	
 	public static void log(String message) {
@@ -34,5 +36,13 @@ public class Logger {
 			logArray(array[i]);
 			System.out.println();
 		}
+	}
+	
+	public static void logArrayList(ArrayList<?> list) {
+		for(int i = 0; i < list.size(); i++) {
+			Object o = list.get(i);
+			System.out.print(o.toString() + ", ");
+		}
+		log("");
 	}
 }
