@@ -14,8 +14,8 @@ public class GraphBFS {
 	
 	public GraphBFS() {
 		UnDirectedGraph unDirectedGraph = new UnDirectedGraph();
-		unDirectedGraph.buildAdjacencyList();
-		adjacencyList = unDirectedGraph.getAdjancencyList();
+		unDirectedGraph.buildAdjacencyMatrix();
+		adjacencyList = unDirectedGraph.buildAdjacencyMatrix();
 	}
 	
 	public static void main(String[] args) {

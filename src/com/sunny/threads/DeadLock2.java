@@ -3,8 +3,8 @@ package com.sunny.threads;
 public class DeadLock2 {
 	
 	public static void main(String[] args) {
-		BankAccount ba1 = new BankAccount(10);
-		BankAccount ba2 = new BankAccount(20);
+		final BankAccount ba1 = new BankAccount(10);
+		final BankAccount ba2 = new BankAccount(20);
 		
 		Thread t1 = new Thread(new Runnable() {
 			

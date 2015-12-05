@@ -26,13 +26,13 @@ public class MergeSort {
 			return (int) Math.ceil((start + end)/2);
 	}
 	
-	public static char[] mergeCharArrays(char[] array1, int size1, int size2) {
+	public static char[] mergeCharArrays(char[] array1, char[] array2, int size1, int size2) {
 		char[] mergedArray = new char[size1 + size2];
 		int i = 0;
 		int j = 0;
 		int k = 0;
 		
-		for(int j ;j < array1.length && k < array2.length; ) {
+		for(; j < array1.length && k < array2.length; ) {
 			if(array1[j] <= array2[k]) {
 				mergedArray[i] = array1[j];
 				i++;

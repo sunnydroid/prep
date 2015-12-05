@@ -1,8 +1,8 @@
 package com.sunny.misc;
 
-import java.util.ArrayList;
-
 import com.sunny.common.Logger;
+
+import java.util.ArrayList;
 
 public class Factors {
 
@@ -63,7 +63,7 @@ public class Factors {
 			if(number % factor == 0) {
 				int multiplier = number/factor;
 				if(factor <= maxFactor && multiplier <= maxFactor && multiplier <= factor) {
-					Logger.log(factors + )
+					Logger.log("Factors" + factors );
 				}
 				if(!factors.contains(multiplier)) {
 					System.out.print(multiplier + " * ");
