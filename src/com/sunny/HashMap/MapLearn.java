@@ -10,6 +10,5 @@ public class MapLearn {
     Map<Integer, String> testMap = new HashMap<>();
 
     public void test() {
-        testMap.
     }
 }

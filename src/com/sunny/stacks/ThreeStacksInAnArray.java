@@ -77,8 +77,8 @@ public class ThreeStacksInAnArray {
 			if(isFull(stackNum)) {
 				Logger.log("Stack " + stackNum + "is full, cannot insert value " + pushValue);
 			}
-			/* find insert location by off-setting 
-			int index = STACK_SIZE *
+			/* find insert location by off-setting */
+//			int index = STACK_SIZE *
 			buffer[topStackPointers[stackNum]] = pushValue;
 			Logger.log("Pushed " + pushValue + " in stack " + stackNum + " at buffer index " +topStackPointers[stackNum]);
 			topStackPointers[stackNum]++;

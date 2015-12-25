@@ -15,20 +15,20 @@ public class GraphBFS {
 	public GraphBFS() {
 		UnDirectedGraph unDirectedGraph = new UnDirectedGraph();
 		unDirectedGraph.buildAdjacencyMatrix();
-		adjacencyList = unDirectedGraph.buildAdjacencyMatrix();
+//		adjacencyList = unDirectedGraph.buildAdjacencyMatrix();
 	}
 	
 	public static void main(String[] args) {
 		GraphBFS graphTest = new GraphBFS();
-		graphTest.testBFS();
+//		graphTest.testBFS();
 
 	}
 	
-	public void testBFS() {
-		UnDirectedGraph unDirGraph = new UnDirectedGraph();
-		List<Node> nodesList = unDirGraph.getNodeList();
-		doesPathExist(nodesList.get(0), nodesList.get(2));
-	}
+//	public void testBFS() {
+//		UnDirectedGraph unDirGraph = new UnDirectedGraph();
+//		List<Node> nodesList = unDirGraph.getNodeList();
+//		doesPathExist(nodesList.get(0), nodesList.get(2));
+//	}
 
 	public boolean doesPathExist(Node from, Node to) {
 		Logger.log("Testing path from '" + from.getNum() + " to '" + to.getNum() + "'");
