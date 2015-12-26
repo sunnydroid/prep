@@ -2,7 +2,6 @@ package com.sunny.graphs;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public final class UnDirectedGraph {
@@ -68,7 +67,7 @@ public final class UnDirectedGraph {
 		FNeighbours.add(B); // F -> B
 		ENeighbours.add(C); // F -> C
 		
-		adjancencyList = new HashMap<Node, ArrayList<Node>>();
+		adjancencyList = new HashMap<>();
 		
 		adjancencyList.put(A, ANeighbours);
 		adjancencyList.put(B, BNeighbours);
@@ -80,16 +79,34 @@ public final class UnDirectedGraph {
 		return A;
 	}
 
-	public void buildAdjacencyMatrix() {
+	public int[][] buildAdjacencyMatrix() {
+
+        /*
+          A B C D E F
+        A 1 1 1 1 0 0
+        B 1 1 0 0 1 1
+        C 1 0 1 0 0 1
+        D 1 0 0 1 0 0
+        E 0 1 0 0 1 0
+        F 0 1 1 0 0 1
+         */
 		
 		adjacencyMatrix = new int[NUM_NODES][NUM_NODES];
+        adjacencyMatrix[0] = new int[] {1, 1, 1, 1, 0, 0};
+        adjacencyMatrix[1] = new int[] {1, 1, 0, 0, 1, 1};
+        adjacencyMatrix[2] = new int[] {1, 0, 1, 0, 0, 1};
+        adjacencyMatrix[3] = new int[] {1, 0, 0, 1, 0, 0};
+        adjacencyMatrix[4] = new int[] {0, 1, 0, 0, 1, 0};
+        adjacencyMatrix[5] = new int[] {0, 1, 1, 0, 0, 1};
+
+        return adjacencyMatrix;
 
 	}
 
 	public int getNUM_NODES() {
-		return NUM_NODES;
-	}
-	
+        return NUM_NODES;
+    }
+
 	private static class Node {
 		
 		char c;

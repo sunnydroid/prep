@@ -32,4 +32,8 @@ public abstract class Stack<E> {
 	public int getCount() {
 		return top;
 	}
+
+    public boolean isEmpty() {
+        return stack.isEmpty();
+    }
 }

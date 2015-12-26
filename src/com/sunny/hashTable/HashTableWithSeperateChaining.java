@@ -27,13 +27,7 @@ public class HashTableWithSeperateChaining {
 		for(int i = 0; i < key.length(); i++) {
 			k = k * 31 + key.charAt(i);
 		}
-		
-	}
-	
-	/*
-	 * using the remainder method
-	 */
-	public int hashDivision(String key) {
-		
+
+        return k;
 	}
 }

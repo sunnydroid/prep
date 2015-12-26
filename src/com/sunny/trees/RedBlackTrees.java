@@ -1,7 +1,6 @@
 package com.sunny.trees;
 
 
-import apple.awt.CColor;
 
 public class RedBlackTrees {
 	
