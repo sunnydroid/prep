@@ -4,13 +4,13 @@ import java.util.NoSuchElementException;
 
 import com.sunny.common.Logger;
 
-public class Queue {
+public class NodeQueue {
 	Node head;
 	Node tail;
 	int size;
 	int max;
 
-	public Queue(int max) throws IllegalArgumentException {
+	public NodeQueue(int max) throws IllegalArgumentException {
 		if (max < 1) {
 			throw new IllegalArgumentException();
 		}
@@ -19,31 +19,31 @@ public class Queue {
 	}
 
 	public static void main(String[] args) {
-		Queue queue = new Queue(10);
-		queue.enqueue(1);
-		queue.enqueue(2);
-		queue.enqueue(3);
-		queue.enqueue(4);
-		queue.enqueue(5);
-		queue.enqueue(6);
-		queue.enqueue(7);
-		queue.enqueue(9);
-		queue.enqueue(10);
-		queue.enqueue(11);
-		queue.enqueue(12);
-		queue.printQueue();
-		Logger.log("Peeking : " + queue.peek());
-		Logger.log("Dequeuing : " + queue.dequeue());
-		Logger.log("Dequeuing : " + queue.dequeue());
-		Logger.log("Dequeuing : " + queue.dequeue());
-		Logger.log("Dequeuing : " + queue.dequeue());
-		Logger.log("Dequeuing : " + queue.dequeue());
-		Logger.log("Dequeuing : " + queue.dequeue());
-		Logger.log("Dequeuing : " + queue.dequeue());
-		Logger.log("Dequeuing : " + queue.dequeue());
-		Logger.log("Dequeuing : " + queue.dequeue());
-		Logger.log("Dequeuing : " + queue.dequeue());
-		Logger.log("Dequeuing : " + queue.dequeue());
+		NodeQueue nodeQueue = new NodeQueue(10);
+		nodeQueue.enqueue(1);
+		nodeQueue.enqueue(2);
+		nodeQueue.enqueue(3);
+		nodeQueue.enqueue(4);
+		nodeQueue.enqueue(5);
+		nodeQueue.enqueue(6);
+		nodeQueue.enqueue(7);
+		nodeQueue.enqueue(9);
+		nodeQueue.enqueue(10);
+		nodeQueue.enqueue(11);
+//		nodeQueue.enqueue(12);
+		nodeQueue.printQueue();
+		Logger.log("Peeking : " + nodeQueue.peek());
+		Logger.log("Dequeuing : " + nodeQueue.dequeue());
+		Logger.log("Dequeuing : " + nodeQueue.dequeue());
+		Logger.log("Dequeuing : " + nodeQueue.dequeue());
+		Logger.log("Dequeuing : " + nodeQueue.dequeue());
+		Logger.log("Dequeuing : " + nodeQueue.dequeue());
+		Logger.log("Dequeuing : " + nodeQueue.dequeue());
+		Logger.log("Dequeuing : " + nodeQueue.dequeue());
+		Logger.log("Dequeuing : " + nodeQueue.dequeue());
+		Logger.log("Dequeuing : " + nodeQueue.dequeue());
+		Logger.log("Dequeuing : " + nodeQueue.dequeue());
+		Logger.log("Dequeuing : " + nodeQueue.dequeue());
 
 	}
 
