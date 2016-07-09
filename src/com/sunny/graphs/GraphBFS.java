@@ -5,30 +5,40 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.sunny.common.GNode;
 import com.sunny.common.Logger;
 import com.sunny.common.Node;
+import com.sunny.common.Queue;
+import com.sunny.common.UnDirectedGraph;
 
 public class GraphBFS {
 
 	private Map<Node, ArrayList<Node>> adjacencyList;
-	
+    private GNode root;
+
 	public GraphBFS() {
 		UnDirectedGraph unDirectedGraph = new UnDirectedGraph();
-		unDirectedGraph.buildAdjacencyMatrix();
-//		adjacencyList = unDirectedGraph.buildAdjacencyMatrix();
+//		unDirectedGraph.buildAdjacencyMatrix();
+		root = unDirectedGraph.buildNodesAndAdjacencyList();
 	}
 	
 	public static void main(String[] args) {
 		GraphBFS graphTest = new GraphBFS();
-//		graphTest.testBFS();
-
+		graphTest.BFS();
 	}
-	
-//	public void testBFS() {
-//		UnDirectedGraph unDirGraph = new UnDirectedGraph();
-//		List<Node> nodesList = unDirGraph.getNodeList();
-//		doesPathExist(nodesList.get(0), nodesList.get(2));
-//	}
+
+    private void BFS() {
+        GNode currentNode;
+        Queue<GNode> queue = new Queue<>();
+        queue.enqueue(root);
+        /* run till queue is not empty */
+        while((currentNode = queue.dequeue()) != null) {
+            Logger.log(currentNode.getData());
+            for(GNode gnode: currentNode.getNeighbours()) {
+                queue.enqueue(gnode);
+            }
+        }
+    }
 
 	public boolean doesPathExist(Node from, Node to) {
 		Logger.log("Testing path from '" + from.getNum() + " to '" + to.getNum() + "'");

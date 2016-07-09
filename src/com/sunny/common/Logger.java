@@ -16,6 +16,10 @@ public class Logger {
 	public static void log(int i) {
 		System.out.println(i);
 	}
+
+    public static void log(char c) {
+        System.out.println(c);
+    }
 	
 	public static void logArray(char[] array) {
 		StringBuilder sb = new StringBuilder();
