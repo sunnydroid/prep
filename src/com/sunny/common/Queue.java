@@ -1,5 +1,7 @@
 package com.sunny.common;
 
+import java.util.List;
+
 /**
  * Created by sunshah on 7/7/16.
  */
@@ -11,6 +13,10 @@ public class Queue<E> {
     public Queue() {
         root = null;
         tail = null;
+    }
+
+    public boolean isEmpty() {
+        return root == null ? true : false;
     }
 
     /**
@@ -52,6 +58,17 @@ public class Queue<E> {
         }
 
         return element;
+    }
+
+    public void enqueue(List<E> items) {
+        if(items == null || items.size() < 1) {
+            Logger.log("List must not be empty to enqueue items");
+            return;
+        }
+
+        for(E element: items) {
+            enqueue(element);
+        }
     }
 
     /**
