@@ -1,4 +1,4 @@
-package com.sunny.hackerRank;
+package com.sunny.problemSet;
 
 import java.util.Scanner;
 

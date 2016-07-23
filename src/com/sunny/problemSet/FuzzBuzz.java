@@ -1,4 +1,4 @@
-package com.sunny.misc;
+package com.sunny.problemSet;
 
 import java.util.ArrayList;
 import java.util.List;
