@@ -1,6 +1,7 @@
 package com.sunny.common;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ public class GNode {
     public GNode(char data) {
         this.data = data;
         visited = 0;
-        neighbours = new ArrayList<>();
+        neighbours = new LinkedList<>();
     }
 
     public char getData() {
@@ -27,5 +28,11 @@ public class GNode {
 
     public List<GNode> getNeighbours() {
         return neighbours;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        return stringBuilder.append("data=").append(data).append("; visited=").append(visited).toString();
     }
 }

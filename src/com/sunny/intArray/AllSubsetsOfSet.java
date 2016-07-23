@@ -65,7 +65,7 @@ public class AllSubsetsOfSet {
 		list.add(3);
 		
 		Logger.log("Set: ");
-		Logger.logArrayList(list);
+		Logger.logList(list);
 		
 		ArrayList<ArrayList<Integer>> subsets = getSubset(list, 0);
 		Logger.log("All subsets: ");
@@ -74,7 +74,7 @@ public class AllSubsetsOfSet {
 	
 	private static void logSubsets(ArrayList<ArrayList<Integer>> subsets) {
 		for(ArrayList<Integer> subset : subsets) {
-			Logger.logArrayList(subset);
+			Logger.logList(subset);
 		}
 	}
 	

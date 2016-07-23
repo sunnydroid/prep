@@ -1,17 +1,18 @@
 package com.sunny.trees;
 
 import com.sunny.common.Logger;
+import com.sunny.common.Queue;
 
-public class BinaryTree {
+public class BinarySearchTree {
 
 	private Node root;
 	
-	public BinaryTree() {
+	public BinarySearchTree() {
 		
 	}
 	
 	public static void main(String[] args) {
-		BinaryTree bst = new BinaryTree();
+		BinarySearchTree bst = new BinarySearchTree();
 		bst.insert(5);
 		bst.insert(3);
 		bst.insert(4);
@@ -23,6 +24,8 @@ public class BinaryTree {
 		Logger.log("In order tree print: ");
 		printInOrderTree(bst.getRoot());
 		Logger.log("Minimum: " + getMin(bst.getRoot()));
+
+        Logger.log("Size of tree: " + sizeIterative(bst.getRoot()));
 		
 		Node[] paths = new Node[10];
 		printPaths(bst.getRoot(), paths, 0);
@@ -35,6 +38,45 @@ public class BinaryTree {
 //		Logger.log("Tree after mirror, i.e. reverse order: ");
 //		printInOrderTree(bst.getRoot());
 	}
+
+    /**
+     * returns count of number of nodes in tree
+     * Algorithm:
+     *  sum = 0;
+     *  if(root node is null)
+     *      return sum
+ *      Queue = nodeQueue()
+     *  add root node -> nodeQueue
+     *  while (currentNode = nodeQueue.pop() is not null)
+     *  {
+     *      sum++;
+     *      if(left node of current node not null add to queue)
+     *      if(right node of current node not null add to queue)
+     *  }
+     * @param node
+     * @return
+     */
+    public static int sizeIterative(Node node) {
+        int sum = 0;
+        /* base case when BST is empty */
+        if(node == null) {
+            return sum;
+        }
+        /* use a data structure to queue up nodes */
+        Queue<Node> queue = new Queue<>();
+        queue.enqueue(node);
+        Node currentNode;
+        while((currentNode = queue.dequeue()) != null) {
+           sum++;
+            if(currentNode.getLeft() != null) {
+                queue.enqueue(currentNode.getLeft());
+            }
+            if(currentNode.getRight() != null) {
+                queue.enqueue(currentNode.getRight());
+            }
+        }
+        return sum;
+    }
 	
 	public static Node delete(Node root, int value) {
 		/*
@@ -162,56 +204,65 @@ public class BinaryTree {
 	}
 	
 	public void insert(int value) {
-//		tree = insertRecursive(this.tree, value);
-		root = insertIterative(root, value);
+		root = insertRecursive(root, value);
+//		root = insertIterative(root, value);
 	}
 	
 	private Node insertRecursive(Node node, int value) {
-		if(node == null) {
-			node = new Node(value);
-			return node;
-		}
-		
-		if(value <= node.getData()) {
-			node.setLeft(insertRecursive(node.getLeft(), value));
-		} else {
-			node.setRight(insertRecursive(node.getRight(), value));
-		}
-		
-		return node;
+        /* if input node is null, return new node
+        this handles the base case;
+         */
+        if(node == null) {
+            return new Node(value);
+        }
+       /* recursively set left/right node */
+        if(node.getData() > value) {
+            /* create node on left branch */
+            node.setLeft(insertRecursive(node.getLeft(), value));
+        } else {
+            node.setRight(insertRecursive(node.getRight(), value));
+        }
+
+        return node;
 	}
 	
 	private Node insertIterative(Node tree, int value) {
-		Node newNode = new Node(value);
-		
-		/*empty tree case */
-		if(tree == null) {
-			return newNode;
-		} 
-		
-		Node currentNode = tree;
-		
-		while(currentNode != null) {
-			if(currentNode.getData() <= value) {
-				/* go left */
-				if(currentNode.getRight() == null) {
-					currentNode.setRight(newNode);
-					break;
-				}
-				currentNode = currentNode.getRight();
-			} else {
-				/* go right */
-				if(currentNode.getLeft() == null) {
-					currentNode.setLeft(newNode);
-					break;
-				}
-				currentNode = currentNode.getLeft();
-			}
-		}
-		
-		return tree;
-	}
-	
+        Node currentNode = tree;
+        Node newNode = new Node(value);
+        // check for base case: empty tree
+        if(currentNode == null) {
+            return newNode;
+        }
+
+        // iterate until broken
+        while(currentNode != null) {
+            if(value > currentNode.getData()) {
+                /* go right and iterate if right node already has value */
+                if(currentNode.getRight() == null) {
+                    currentNode.setRight(newNode);
+                    /* we can break out at this point */
+                    break;
+                } else {
+                    currentNode = currentNode.getRight();
+                }
+            } else {
+                if(currentNode.getLeft() == null) {
+                    currentNode.setLeft(newNode);
+                    /* break out once setting new node */
+                    break;
+                } else {
+                    currentNode = currentNode.getLeft();
+                }
+            }
+        }
+        return tree;
+    }
+
+    /**
+     * In order traversal of the BST prints from the smallest root node
+     * increasing up
+     * @param node
+     */
 	public static void printInOrderTree(Node node) {
 		if(node == null) {
 			return;

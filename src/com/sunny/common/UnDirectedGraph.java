@@ -3,20 +3,21 @@ package com.sunny.common;
 import java.util.List;
 
 public final class UnDirectedGraph {
-	private final int NUM_NODES = 5;
-	private GNode root;
+    private final int NUM_NODES = 6;
+    private GNode root;
+    private int[][] adjacencyMatrix;
+
 	/*
 	 *         A
 	 *      /  \  \
-	 *    B     C  D 
+	 *    B     C  D
 	 *   /  \  /
 	 *  E    F
 	 */
 
-	private int[][] adjacencyMatrix;
-
 	public UnDirectedGraph() {
 		root = buildNodesAndAdjacencyList();
+        adjacencyMatrix = buildAdjacencyMatrix();
 	}
 	
 	public GNode buildNodesAndAdjacencyList() {

@@ -1,6 +1,6 @@
 package com.sunny.common;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Logger {
 	
@@ -42,7 +42,7 @@ public class Logger {
 		}
 	}
 	
-	public static void logArrayList(ArrayList<?> list) {
+	public static void logList(List<?> list) {
 		for(int i = 0; i < list.size(); i++) {
 			Object o = list.get(i);
 			System.out.print(o.toString() + ", ");

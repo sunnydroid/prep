@@ -1,7 +1,9 @@
 package com.sunny.graphs;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,28 +17,59 @@ public class GraphBFS {
 
 	private Map<Node, ArrayList<Node>> adjacencyList;
     private GNode root;
+    int[][] adjacencyMatrix;
 
 	public GraphBFS() {
 		UnDirectedGraph unDirectedGraph = new UnDirectedGraph();
-//		unDirectedGraph.buildAdjacencyMatrix();
+		adjacencyMatrix = unDirectedGraph.buildAdjacencyMatrix();
 		root = unDirectedGraph.buildNodesAndAdjacencyList();
 	}
-	
-	public static void main(String[] args) {
+
+    public GNode getRoot() {
+        return root;
+    }
+
+    public static void main(String[] args) {
 		GraphBFS graphTest = new GraphBFS();
-		graphTest.BFS();
+		graphTest.BFS(graphTest.root, 'F', new LinkedList<>());
 	}
 
-    private void BFS() {
-        GNode currentNode;
+    /**
+     * Breath First Search Algorithm()
+     * BFS(GNode start, int targetNodeValue)
+     *  if targetNodeValue equals current root node value, return list of visited nodes
+     *  if targetNodeValue not equal current root node value, and there are no children, return empty list (path not available)
+     *  add current node to visited node list
+     *  instantiate new queue of nodes to process
+     *  add current node's children to queue
+     *  while queue is not empty:
+     *      current node -> pop from queue
+     *      recurse BFS(current node, target node, visited list
+     */
+    private void BFS(GNode currentRoot, char targetValue, List<GNode> visitedNodes) {
+        /* create new list and add current node and previously visited list to track new route */
+        List<GNode> newVisitedNodes = new LinkedList<>(visitedNodes);
+        newVisitedNodes.add(currentRoot);
+
+        if(currentRoot.getData() == targetValue) {
+            /* reached target, return list of visited nodes */
+            Logger.log("Target node reached via:");
+            Logger.logList(newVisitedNodes);
+            return;
+        }
+        if(currentRoot.getNeighbours().isEmpty()) {
+            /* no path available to target, return empty list if problem requires*/
+            Logger.log("Target node not reachable via:");
+            Logger.logList(newVisitedNodes);
+//            return Collections.emptyList();
+            return;
+        }
+        /* create new queue and all neighbours that need to be recursed */
         Queue<GNode> queue = new Queue<>();
-        queue.enqueue(root);
-        /* run till queue is not empty */
-        while((currentNode = queue.dequeue()) != null) {
-            Logger.log(currentNode.getData());
-            for(GNode gnode: currentNode.getNeighbours()) {
-                queue.enqueue(gnode);
-            }
+        queue.enqueue(currentRoot.getNeighbours());
+        /* recurse till queue is not empty */
+        while(!queue.isEmpty()) {
+            BFS(queue.dequeue(), targetValue, newVisitedNodes);
         }
     }
 
