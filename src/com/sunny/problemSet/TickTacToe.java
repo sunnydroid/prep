@@ -1,4 +1,4 @@
-package com.sunny.misc;
+package com.sunny.problemSet;
 
 import com.sunny.common.Logger;
 
