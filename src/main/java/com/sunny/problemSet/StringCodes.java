@@ -1,12 +1,13 @@
 package com.sunny.problemSet;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 import com.sunny.common.Logger;
 
 /**
- * If a=1, b=2, c=3,....z=26. Given a string, find all possible codes that
- * string can generate. Give a count as well as print the strings.
+ * If a=1, b=2, c=3,....z=26. Given a string of integers, find all possible codes that
+ * the string can generate. Give a count as well as print the strings.
  * 
  * For example: Input: "1123". You need to general all valid alphabet codes from
  * this string.
@@ -31,8 +32,46 @@ public class StringCodes {
 		String testInput = "1123";
 		buildMap();
 //		printMap();
-		decode(testInput.toCharArray(), "", 0);
+//		decode(testInput.toCharArray(), "", 0);
+        char[] initalArray = new char[0];
+        allCombinations("abc".toCharArray(), initalArray, 0);
 	}
+
+    /**
+     * Returns all combinations possible of the input string
+     * Algorithm:
+     *  check if we have processed all characters, if index is equal to characters.length, print current sequence
+     *  newStartIndex = index
+     *  while newStartIndex not equal to characters.length
+     *      allocate new sequence of characters
+     *      copy over character at newStartIndex
+     *      increment newStartIndex
+     *      recurse with new character sequence and index++
+     *
+     * @param characters
+     * @param currentSequence
+     * @param index
+     */
+    public static void allCombinations(char[] characters, char[] currentSequence, int index) {
+        if(characters.length == currentSequence.length ) {
+            /* we have incorporated all possible combinations, print the characters */
+            Logger.logArray(currentSequence);
+            return;
+        }
+
+        int newStartIndex = index;
+        /* append all remaining characters to current sequence and recurse */
+        while(newStartIndex < characters.length) {
+            /* create new sequence of characters from existing */
+            char[] newCharSequence = Arrays.copyOf(currentSequence, currentSequence.length +1);
+            /* append characters at current index */
+            newCharSequence[newCharSequence.length - 1] = characters[newStartIndex];
+            /* recurse with new sequence and incremented index */
+            allCombinations(characters, newCharSequence, ++index);
+            /* increment newStartIndex and append next remaining character to current sequence */
+            newStartIndex++;
+        }
+    }
 	
 	/*
 	 * algorithm: use a backtracking method.
