@@ -1,14 +1,15 @@
 package com.sunny.java;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.sunny.common.Logger;
-import sun.rmi.runtime.Log;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -23,7 +24,37 @@ public class JsonSerialization {
     public static final ObjectMapper objectMapper = new ObjectMapper();
 
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        testBuildingAndParsingJsonTree();
+    }
+
+    public static void testBuildingAndParsingJsonTree() throws IOException {
+        String jsonTreeString =
+                "{" +
+                        "  \"arrayOfPairs\" : [ {" +
+                        "    \"key\" : \"value\"" +
+                        "  }, {" +
+                        "    \"key2\" : \"value2\"" +
+                        "  }],  " +
+                        " \"list\" : [\"a\", \"b\"]" +
+                        "}";
+
+        JsonNode root = objectMapper.readTree(jsonTreeString);
+        JsonNode listNode = root.get("list");
+        Iterator<JsonNode> listNodeValues = listNode.elements();
+
+        int index = 0;
+
+        Logger.log("list as text => " + listNode.textValue());
+        Logger.log("list size => " + listNode.size());
+        while (listNodeValues.hasNext()) {
+            JsonNode jsonNode = listNodeValues.next();
+            String value = jsonNode.asText();
+            Logger.log("list value at index= " + index + " =>" + value);
+        }
+    }
+
+    public static void testJsonSerializationAndDe() {
         Map<String, String> map = new HashMap<String, String>();
         Map<String, String> map2 = new HashMap<String, String>();
         map.put("key", "value");

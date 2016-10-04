@@ -3,22 +3,48 @@ package com.sunny.common;
 import java.util.List;
 
 public final class UnDirectedGraph {
-    private final int NUM_NODES = 6;
+    private int vertices = 6;
+    private int edges;
     private GNode root;
     private int[][] adjacencyMatrix;
 
 	/*
-	 *         A
+	 *        A
 	 *      /  \  \
 	 *    B     C  D
 	 *   /  \  /
 	 *  E    F
+	 *
+	 *  G(6, 6) - 6 nodes and 6 edges.
+	 *  Adjacency list
+	 *  ---------------
+	 *  G[A] = {B, C, D}
+	 *  G[B] = {A, E, F}
+	 *  G[C] = {A, F}
+	 *  G[D] = {A}
+	 *  G[E] = {B}
+	 *  G[F] = {B, C}
+	 *
+	 *  Adjacency Matrix
+	 *  -----------------
+	 *    A B C D E F
+	 *  A 0 1 1 1 0 0
+	 *  B 1 0 0 0 1 1
+	 *  C 1 0 0 0 0 1
+	 *  D 1 0 0 0 0 0
+	 *  E 0 1 0 0 0 0
+	 *  F 0 1 1 0 0 0
 	 */
 
 	public UnDirectedGraph() {
 		root = buildNodesAndAdjacencyList();
         adjacencyMatrix = buildAdjacencyMatrix();
 	}
+
+    public UnDirectedGraph(int vertices, int edges) {
+        this.vertices = vertices;
+        this.edges = edges;
+    }
 	
 	public GNode buildNodesAndAdjacencyList() {
 		GNode A = new GNode('A');
@@ -60,7 +86,7 @@ public final class UnDirectedGraph {
         F 0 1 1 0 0 1
          */
 		
-		adjacencyMatrix = new int[NUM_NODES][NUM_NODES];
+		adjacencyMatrix = new int[vertices][vertices];
         adjacencyMatrix[0] = new int[] {1, 1, 1, 1, 0, 0};
         adjacencyMatrix[1] = new int[] {1, 1, 0, 0, 1, 1};
         adjacencyMatrix[2] = new int[] {1, 0, 1, 0, 0, 1};
@@ -72,8 +98,8 @@ public final class UnDirectedGraph {
 
 	}
 
-	public int getNUM_NODES() {
-        return NUM_NODES;
+	public int getVertices() {
+        return vertices;
     }
 
 }
