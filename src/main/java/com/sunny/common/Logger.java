@@ -30,6 +30,14 @@ public class Logger {
 	}
 	
 	public static void logArray(int[] array) {
+		if(array == null) {
+			log("null array");
+            return;
+		}
+		if(array.length == 0) {
+			log("empty array");
+            return;
+		}
 		for(int i = 0; i < array.length; i++) {
 			System.out.print(array[i] + "\t");
 		}
