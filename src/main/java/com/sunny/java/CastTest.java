@@ -7,6 +7,7 @@ public class CastTest {
 
     public static void main(String[] args) {
         testCastNPE();
+        System.out.println("No NPE");
     }
 
     public static void testCastNPE() {
