@@ -1,38 +1,74 @@
 package com.sunny.graphs;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import com.sunny.common.GNode;
+import com.sunny.common.Logger;
+import com.sunny.common.Node;
+import com.sunny.common.Queue;
+import javafx.util.Pair;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import com.sunny.common.GNode;
-import com.sunny.common.Logger;
-import com.sunny.common.Node;
-import com.sunny.common.Queue;
-import com.sunny.common.UnDirectedGraph;
-
+/**
+ *        A
+ *      /  \  \
+ *    B     C  D
+ *   /  \  /
+ *  E    F
+ *
+ *  G(6, 6) - 6 nodes and 6 edges.
+ *  Adjacency list
+ *  ---------------
+ *  G[A] = {B, C, D}
+ *  G[B] = {A, E, F}
+ *  G[C] = {A, F}
+ *  G[D] = {A}
+ *  G[E] = {B}
+ *  G[F] = {B, C}
+ *
+ *  Adjacency Matrix
+ *  -----------------
+ *    A B C D E F
+ *  A 0 1 1 1 0 0
+ *  B 1 0 0 0 1 1
+ *  C 1 0 0 0 0 1
+ *  D 1 0 0 0 0 0
+ *  E 0 1 0 0 0 0
+ *  F 0 1 1 0 0 0
+ */
 public class GraphBFS {
 
-	private Map<Node, ArrayList<Node>> adjacencyList;
-    private GNode root;
-    int[][] adjacencyMatrix;
-
-	public GraphBFS() {
-		UnDirectedGraph unDirectedGraph = new UnDirectedGraph();
-		adjacencyMatrix = unDirectedGraph.buildAdjacencyMatrix();
-		root = unDirectedGraph.buildNodesAndAdjacencyList();
-	}
-
-    public GNode getRoot() {
-        return root;
-    }
-
     public static void main(String[] args) {
-		GraphBFS graphTest = new GraphBFS();
-		graphTest.BFS(graphTest.root, 'F', new LinkedList<>());
-	}
+        Graph graph = new Graph(6);
+        /** A = 0, B = 1 ...F = 5 */
+        graph.addEdge(0, 1, 1);
+        graph.addEdge(0, 2, 1);
+        graph.addEdge(0, 3, 1);
+
+        graph.addEdge(1, 0, 1);
+        graph.addEdge(1, 4, 1);
+        graph.addEdge(1, 5, 1);
+
+        graph.addEdge(2, 0, 1);
+        graph.addEdge(2, 5, 1);
+
+        graph.addEdge(3, 0, 1);
+
+        graph.addEdge(4, 1, 1);
+
+        graph.addEdge(5, 1, 1);
+        graph.addEdge(5, 2, 1);
+
+        graph.printGraph();
+//        graph.removeEdge(0, 1);
+//        graph.printGraph();
+
+        doesPathExistBFS(graph, 0, 4);
+        graph.removeEdge(1, 4);
+        doesPathExistBFS(graph, 0, 4);
+    }
 
     /**
      * Breath First Search Algorithm()
@@ -73,32 +109,57 @@ public class GraphBFS {
         }
     }
 
-	public boolean doesPathExist(Node from, Node to) {
-		Logger.log("Testing path from '" + from.getNum() + " to '" + to.getNum() + "'");
-		Map<Node, Boolean> visitedMap = new HashMap<Node,Boolean>();
-		GraphStack stack = new GraphStack();
-		if(adjacencyList.containsKey(from)) {
-			/* Get all adjacent nodes of the source node and push onto stack */
-			pushToGraphStack(adjacencyList.get(from), stack);			
-			/* iterate through the stack until empty */
-			while(!stack.isEmpty()) {
-				Node currentNode = stack.pop();
-				Logger.log("Popped '" + currentNode.getNum() + "' from stack");
-				if(visitedMap.get(currentNode) == null || visitedMap.get(currentNode) == false) {
-					visitedMap.put(currentNode, true);
-					if(currentNode == to) {
-						Logger.log("Path exists!");
-						return true;
-					} else {
-						pushToGraphStack(adjacencyList.get(currentNode), stack);
-					}
-				}
-			}
-		}
-		Logger.log("Path does not exist");
+    /**
+     * Check if path exists between 2 vertices.
+     * Algorithm:
+     *  mark source node as visited
+     *  create new queue of nodes to process
+     *  create new array of vertex size to keep track of visited nodes
+     *  add all children of source node to queue
+     *  while queue is not empty:
+     *      node = queue.pop
+     *      if node is visited:
+     *          continue
+     *      mark node as visited
+     *      if node equals target node:
+     *          return true
+     *      add node's children to queue
+     *
+     *  return false
+     *
+     * @param graph
+     * @param from
+     * @param to
+     * @return
+     */
+	public static boolean doesPathExistBFS(Graph graph, int from, int to) {
+		Logger.log("Testing path from '" + from + " to '" + to);
+        boolean[] visited = new boolean[graph.numberOfVertices];
+        Queue<Pair<Integer, Integer>> queue = new Queue<>();
+        /** enqueue all of source node's children */
+        queue.enqueue(graph.adjacencyList[from]);
+        /** mark source as visited */
+        visited[from] = true;
+        while (!queue.isEmpty()) {
+            Pair<Integer, Integer> pair = queue.dequeue();
+            /** if node has been visited, continue to the next node */
+            if (visited[pair.getKey()]) {
+                continue;
+            }
+            /** if node is the target, return true */
+            if (pair.getKey() == to) {
+                Logger.log("Path exists");
+                return true;
+            }
+            /** otherwise, mark node as visited and add its children to queue */
+            visited[pair.getKey()] = true;
+            queue.enqueue(graph.adjacencyList[pair.getKey()]);
+        }
+
+        Logger.log("Path does not exist");
 		return false;
 	}
-	
+
 	private void pushToGraphStack(List<Node> nodeList, GraphStack graphStack) {
 		for(Node node : nodeList) {
 			Logger.log("pushing '" + node.getNum() +"' to stack");

@@ -57,4 +57,16 @@ public class Logger {
 		}
 		log("");
 	}
+
+    public static void log(List<Integer> integers) {
+		for (Integer i : integers) {
+			System.out.println(i);
+		}
+	}
+
+    public static void log(String[] words) {
+		for (String word : words) {
+			System.out.println(word);
+		}
+	}
 }

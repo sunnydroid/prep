@@ -4,3 +4,5 @@
 *.iml
 .idea
 target
+# recursive ignore .DS_Store hidden files
+**/*.DS_Store
