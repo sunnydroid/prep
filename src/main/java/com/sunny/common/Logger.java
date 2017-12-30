@@ -7,7 +7,11 @@ public class Logger {
 	public static void log(String message) {
 		System.out.println(message);
 	}
-	
+
+	public static void logSameLine(String message) {
+		System.out.print(message);
+	}
+
 	public static void log(String message, Throwable thrown) {
 		System.out.print(message);
 		thrown.printStackTrace();
@@ -67,6 +71,15 @@ public class Logger {
     public static void log(String[] words) {
 		for (String word : words) {
 			System.out.println(word);
+		}
+	}
+
+    public static void log(int[][] array) {
+		for(int i = 0; i < array.length; i++) {
+			for(int j = 0; j < array[i].length; j++) {
+				System.out.print(array[i][j] + " ");
+			}
+			System.out.println("");
 		}
 	}
 }

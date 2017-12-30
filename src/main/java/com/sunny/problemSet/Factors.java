@@ -9,7 +9,7 @@ public class Factors {
 	
 	public static void main(String[] args) {
 //		primeFactors(12);
-//		factors(21);
+		factors(21);
 //		permuteFactors(12);
 		printFactorsList(32, "", 32);
 	}
@@ -75,12 +75,7 @@ public class Factors {
 		}
 	}
 	
-	private void log(ArrayList<Integer> list) {
-		for(Integer integer : list) {
-			System.out.println(integer + " * ");
-		}
-	}
-	
+
 	public static void factors(int i) {
 		ArrayList<Integer> factors = new ArrayList<Integer>();
 		int factor = 1;
@@ -96,13 +91,11 @@ public class Factors {
 	
 	static void printFactors(int n, String p) {    
         int start = 1;    
-        int lastValue = 0;    
-    
+
         while (start <= Math.sqrt(n)) {    
             if (n % start == 0) {    
                 System.out.println((n / start) + "x" + start + p);    
-                lastValue = (n / start);    
-    
+
                 if (!isPrime(start)) {    
                     factorIt(n / start, start);    
                 }    
@@ -127,9 +120,17 @@ public class Factors {
     
             start++;    
         }    
-    }    
-    
-    static boolean isPrime(int n) {    
+    }
+
+	/**
+	 * Prime numbers are divisible by ony 1 and the number itself.
+	 * 1 is not a prime number
+	 *
+	 * Max prime factor that needs to be checked is the sqrt(n)
+	 * @param n
+	 * @return
+	 */
+	static boolean isPrime(int n) {
         if (n == 2) {    
             return true;    
         }    

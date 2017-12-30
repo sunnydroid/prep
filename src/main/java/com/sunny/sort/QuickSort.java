@@ -7,11 +7,9 @@ public class QuickSort {
 	public static void main(String[] args) {
         int[] a = {2,3,4,5,1,2};
         Logger.log("before sort");
-        Logger.log("");
         Logger.logArray(a);
         quickSort(a, 0, a.length - 1);
         Logger.log("After sort");
-        Logger.log("");
         Logger.logArray(a);
         /* pair of arrays that need to be sorted as a pair */
         int[] startTimes = {1, 3, 0, 5, 8, 5};
@@ -44,10 +42,10 @@ public class QuickSort {
 		if(a.length < 2) {
 			return;
 		}
-		
-		if(start < end) {
-			int partition = partition(a, start, end);
-			quickSort(a, start, partition);
+
+        if(start < end) {
+            int partition = partition(a, start, end);
+            quickSort(a, start, partition);
 			quickSort(a, partition+1, end);
 		}
 	}
@@ -60,34 +58,27 @@ public class QuickSort {
      *      decrement right index until you find element at right index smaller than pivot
      *      then swap
  *      return the left index as new pivot
-     * @param a
+     * @param nums
      * @param start
      * @param end
      * @return
      */
-	public static int partition(int[] a, int start, int end) {
-		
-		Logger.logArray(a);
-		Logger.log("");
-	
-		int pivot = a[(start + end) / 2];
+	public static int partition(int[] nums, int start, int end) {
+
+	    /** use end as pivot */
+		int pivot = end;
 		int i = start;
-		int j = end;
-		
-		while(i <= j) {
-			/* increment right until find element greater than pivot */
-			while(a[i] < pivot) {
-				i++;
-			}
-			/* decrement left until you find element less than greater than pivot */
-			while(a[j] > pivot) {
-				j--;
-			}
-			/* now swap the elements at the two indices */
-			swap(a, i, j);
+
+		for(int j = start; j < end; j++) {
+		    /** value at current index is greater than value at pivot, swap */
+			if(nums[j] > nums[pivot]) {
+                swap(nums, pivot, j);
+                /** update the location of where the next partition should take place */
+                i++;
+            }
 		}
 		
-		return i; 
+		return i;
 	}
 	
 	public static void swap(int[] a, int b, int c) {
