@@ -24,18 +24,27 @@ import java.util.ListIterator;
  * Twitter model is an example of directed graph, where the direction of path represents follower and following
  * Facebook connections are an example of undirected graph where a connection is bidirectional
  *
+ * Representing edges:
+ *
  * A graph can be dense, i.e. with many edges between vertices or sparse
  * An edge list (or array) is a representation of all the edges in the graph. Therefore to represent
  * edges requires O(E) space and similarly, finding an edge requires O(E) time. Searching for edges can
  * be costly if the graph is big and densely connected.
+ *
+ * Edge lists for the graph below will require O(E) time to find edges as you have to travers the entire list.
+ *
+ *      1
+ *     / \
+ *    2---3
+ *
  * [
  *  [1, 2],
  *  [2, 3],
  *  [3, 1]
  * ]
  *
- * Though this representation is simple an adjacency
- * matrix will be a better solution for big, densely connected graphs.
+ * Though edge list representation is simple an adjacency matrix will be a better solution for big, densely connected
+ * graphs.
  *
  * Adjacency matrix serves as a lookup table where a value of 1 represents presence of an edge between vertices
  * while 0 means no edge. For example the following graph can be represented as:
@@ -70,7 +79,8 @@ import java.util.ListIterator;
  * The hybrid approach, Adjacency list is an array of linked list that serves as a representation of the graph but also
  * makes it easier to see which other adjacent vertices.
  *
- * Each vertex is an index in the list. The graph above can be represented as:
+ * Each vertex is an index in the list. Linked list at that index represents all all ther vertices that are connected to
+ * the current vertex. The graph above can be represented as:
  * 1 => 2 -> 3
  * 2 => 3 -> 1
  * 3 => 1 -> 2
@@ -102,7 +112,9 @@ public class Graph {
     }
 
     public void removeEdge(int from, int to) {
+        /** get an iterator to the linked list at the vertex from which to remove the edge */
         ListIterator<Pair<Integer, Integer>> listIterator = adjacencyList[from].listIterator();
+        /** travers the linked list until edge is found and remove it */
         while (listIterator.hasNext()) {
             Pair<Integer, Integer> pair = listIterator.next();
             if (pair.getKey().intValue() == to) {
@@ -112,17 +124,34 @@ public class Graph {
         }
     }
 
+    /**
+     * Prints the current graph
+     */
     public void printGraph() {
         StringBuilder stringBuilder = new StringBuilder();
+        /** for each vertex, get linked list of connected vertices */
         for(int i = 0; i < adjacencyList.length; i++) {
             stringBuilder.append(i + "=>");
             LinkedList<Pair<Integer, Integer>> edges = adjacencyList[i];
             for (Pair<Integer, Integer> pair : edges) {
                 stringBuilder.append("{" + pair.getKey() + ", " + pair.getValue() + "} -> ");
             }
+            /** add a new line after printing connected vertices of each vertex */
             stringBuilder.append("\n");
         }
 
         Logger.log(stringBuilder.toString());
+    }
+
+    public LinkedList<Pair<Integer, Integer>> getNeighbours(int vertex) {
+        if (vertex >= numberOfVertices) {
+            throw new IllegalArgumentException("Invalid vertex");
+        }
+
+        return adjacencyList[vertex];
+    }
+
+    public int getNumberOfVertices() {
+        return numberOfVertices;
     }
 }

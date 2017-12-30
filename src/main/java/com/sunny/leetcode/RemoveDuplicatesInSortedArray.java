@@ -40,6 +40,8 @@ public class RemoveDuplicatesInSortedArray {
      *
      *  return uniqeNums
      *
+     * Runtime: O(n)
+     * Space : O(1)
      *
      * @param nums
      * @return

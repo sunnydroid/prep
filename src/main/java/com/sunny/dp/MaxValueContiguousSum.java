@@ -2,7 +2,7 @@ package com.sunny.dp;
 
 import com.sunny.common.Logger;
 
-/*
+/**
  * Given an array write a function to print continuous subsequences in the array with highest sum.
  * e.g:
  * Input:
@@ -15,14 +15,44 @@ public class MaxValueContiguousSum {
 	public static void main(String[] args) {
 		int[] input = {-7, 1, 2, 3, -4, 5};
 		maxSubSequence(input);
-		maxSubSequence2(input);
 	}
-	/*
-	 * Algorithm: maintain a max sum, starting index for the max sum and ending index for the max sum
-	 * If current element adds to overall sum, include it. If max sum is less than current element, set max
-	 * sum to the value of current element and continue
+	/**
+	 * Approach:
+     *  Maintain a max sum, starting index for the max sum and ending index for the max sum. These two
+     *  pointers are updated depending on values of the max sum, current sum and element at current index.
+	 *  If current element adds to overall sum, include it. If max sum is less than current element, drop the previous
+     *  element and set max sum to the value of current element, update max sum start/end indexes.
 	 * 
-	 * If max sum is not less than the current element but current sum is less than max sum, keep moving
+	 *  If max sum is greater than the current element but current sum is less than max sum, we haven't found a new
+     *  max, continue checking
+     *
+     * This is a dynamic programming problem where you have n smaller problems each of which takes O(1) time.
+     *      M(j) = max{M(j-1) + A[j], A[j]}
+     *
+     * Algorithm:
+     *  maxSumStartIndex = 0
+     *  maxSumStopIndex = 0
+     *  maxSum = input[0];
+     *  currentSum = input[0]
+     *
+     *  for index 1 -> input length:
+     *      currenSum -> currentSum + input[i]
+     *      if currentSum > maxSum:
+     *          maxSum -> currentSum
+     *          maxSumStopIndex -> i
+     *
+     *      if maxSum + input[i] <= input[i]:
+     *          // current input is greater than the max, drop the previous elements and start fresh from current element
+     *          maxSum -> input[i]
+     *          currentSum -> input[i]
+     *          maxSumStartIndex -> i;
+     *          maxSumEndIndex -> i;
+     *
+     *      // otherwise max sum is greater than current sum because current element did not contribute to max sum,
+     *      // keep looking
+     *
+     * Runtime = O(N)
+     * Space = O(1)
 	 */
 
 	public static void maxSubSequence(int[] input) {
@@ -35,8 +65,8 @@ public class MaxValueContiguousSum {
 		for(int i = 1; i < input.length; i++) {
 			currentMaxSum += input[i]; 
 			
-			/* we could have done without the previous input as max sum is < element at current
-			 * index e.g [-7, 1, 2]
+			/** we could have done without the previous input as max sum is < element at current
+			 * index e.g [-7, 1, 2] i.e. 1 > -7, drop -7 and update maxSum, start/end indexes
 			 */
 			 if((maxSum + input[i]) <= input[i]) {
 			 	maxSum = input[i];
@@ -45,7 +75,7 @@ public class MaxValueContiguousSum {
 			 	currentMaxSum = maxSum;
 			 }
 			
-			/* element at current index added to total sum */
+			/** element at current index added to total sum, include it in the sub sequence */
 			if(currentMaxSum > maxSum) {
 				maxSum = currentMaxSum;
 				maxSumStopIndex = i;
@@ -53,39 +83,9 @@ public class MaxValueContiguousSum {
 		}
 		
 		Logger.log("Max Sum : " + maxSum);
+		Logger.log("Sub sequence : ");
 		for(int j = maxSumStartIndex; j <= maxSumStopIndex; j++) {
-			Logger.log(input[j] + ", ");
+			Logger.logSameLine(input[j] + ", ");
 		}
 	}
-	
-	public static void maxSubSequence2(int[] input) {
-		/*
-		 * You are trying to find the max sum from index i to j 
-		 * Using dynamic programming, extend the previous window or start a new window, i.e. only 
-		 * 2 cases. Runtime O(n), you have n smaller problems each of which takes 1 time.
-		 * M(j) = max{M(j-1) + A[j], A[j]}
-		 */
-		int start = 0;
-		int end = 0;
-		int maxSum = input[0];
-		
-		for(int i = 0; i < input.length; i++) {
-			if(maxSum + input[i] > input[i]) {
-				/* extend the window and include ith element as part of sequence */
-				maxSum += input[i];
-				end = i;
-			} else {
-				/* start a new window */
-				maxSum = input[i];
-				start = i;
-				end = i;
-			}
-		}
-		
-		Logger.log("Max Sum : " + maxSum);
-		for(int j = start; j <= end; j++) {
-			Logger.log(input[j] + ", ");
-		}
-	}
-
 }

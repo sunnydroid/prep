@@ -66,6 +66,9 @@ public class SubArrayTargetSum {
      *  sub array not found:
      *     return {-1, -1}
      *
+     * Runtime: O(n)
+     * Space: O(1)
+     *
      *
      * @param numbers
      * @param target

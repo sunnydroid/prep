@@ -1,8 +1,6 @@
 package com.sunny.trie;
 
-import com.sunny.common.Logger;
-
-import java.util.*;
+import java.util.Stack;
 
 
 public class Trie {
@@ -19,6 +17,7 @@ public class Trie {
     private Node root;
 
     public Trie() {
+        /** initialize tri as empty character */
         root = new Node('0');
     }
 
