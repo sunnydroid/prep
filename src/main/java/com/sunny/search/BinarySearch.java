@@ -7,12 +7,6 @@ import com.sunny.common.Logger;
  */
 public class BinarySearch {
 
-    public static void main(String[] args) {
-        int[] sortedArray = {1, 3, 5, 6, 7, 9, 12};
-        int target = 4;
-        int targetIndex = binarySearchIterative(sortedArray, target);
-        Logger.log("index of target " + target + " : " + targetIndex);
-    }
 
     /**
      * Binary search algorithm that searches for target element by reducing
@@ -21,26 +15,19 @@ public class BinarySearch {
      * @param target
      * @return
      */
-    public static int binarySearchIterative(int[] array, int target) {
+    public static int binarySearch(int[] array, int target) {
         int startIndex, middleIndex, endIndex, targetIndex = -1, iterations;
         /* if array is empty or target value is larger/smaller than biggest, smallest element in array, return */
-        if(array.length < 1 || array[0] > target || array[array.length - 1] < target) {
-            System.out.println("array length = " + array.length);
-            System.out.println("first element  = " + array[0]);
-            System.out.println("last element = " + array[array.length -1]);
+        if(array == null || array.length < 1 || array[0] > target || array[array.length - 1] < target) {
             return targetIndex;
         }
 
-        startIndex = iterations = 0;
+        startIndex = 0;
         endIndex = array.length - 1;
 
-        while(endIndex > startIndex) {
+        while(endIndex >= startIndex) {
             /* get the middle element */
             middleIndex = (endIndex + startIndex) / 2;
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append("Start index= ").append(startIndex).append(", end index=").append(endIndex).append("; iteration=").append(iterations);
-            Logger.log(stringBuilder.toString());
-
             /* check if center element is target we are looking for */
             if(array[middleIndex] == target) {
                 targetIndex = middleIndex;
@@ -49,14 +36,20 @@ public class BinarySearch {
             /* search smaller half if middle element is bigger than target, else search bigger half */
             if(array[middleIndex] > target) {
                 /* start index remains the same */
-                endIndex = middleIndex;
+                endIndex = middleIndex - 1;
             } else {
                 /* end index remains the same */
-                startIndex = middleIndex+1;
+                startIndex = middleIndex + 1;
             }
-            iterations++;
-
         }
         return targetIndex;
     }
+
+    public static void main(String[] args) {
+        int[] sortedArray = {1, 3, 5, 6, 7, 8, 9, 12, 15};
+        int target = 10;
+        int targetIndex = binarySearch(sortedArray, target);
+        Logger.log("index of target " + target + " : " + targetIndex);
+    }
+
 }

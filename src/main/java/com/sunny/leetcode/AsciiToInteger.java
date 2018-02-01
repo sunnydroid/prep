@@ -90,7 +90,7 @@ public class AsciiToInteger {
                     convertedInteger = convertedInteger * 10 + digit;
                     break;
                 default:
-                    return convertedInteger * sign;
+                    return 0;
             }
             index++;
         }
@@ -99,7 +99,7 @@ public class AsciiToInteger {
     }
 
     public static void main(String[] args) {
-        String testString = "        -ABC2000ABC";
+        String testString = "        -2000ABC";
         int convertedInt = asciiToInteger(testString);
 
         Logger.log("Converted int = " + convertedInt);
