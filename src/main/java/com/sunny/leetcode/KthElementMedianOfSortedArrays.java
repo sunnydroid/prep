@@ -55,7 +55,7 @@ public class KthElementMedianOfSortedArrays {
      *
      *  // indexToCompare cannot exceed length of the sorted array else, we run into OutOfBoundsException. If
      *  // indexToCompare is greater than array length, value to compare against will me Integer.MAX to force
-     *  // us to continue searching in the other sored array
+     *  // us to continue searching in the other sorted array
      *  v1 = nums1[indexToCompare1] if indexToCompare1 < nums1.length else v1 = Integer.MAX
      *  v2 = nums2[indexToCompare2] if indexToCompare2 < nums2.length else v2 = Integer.MAX
      *

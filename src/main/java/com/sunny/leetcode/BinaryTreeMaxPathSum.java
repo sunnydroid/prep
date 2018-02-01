@@ -2,24 +2,25 @@ package com.sunny.leetcode;
 
 import com.sunny.common.Logger;
 
-import java.util.Arrays;
 
-/**
- * Given a binary tree, find the maximum path sum.
- *
- * For this problem, a path is defined as any sequence of nodes from some starting node to any node in the tree along
- * the parent-child connections. The path must contain at least one node and does not need to go through the root.
- *
- * For example:
- * Given the below binary tree,
- *
- *      1
- *     / \
- *    2   3
- *
- * Return 6.
- */
 public class BinaryTreeMaxPathSum {
+
+    /**
+     * Given a binary tree, find the maximum path sum from root to leaf.
+     *
+     * For this problem, a path is defined as any sequence of nodes from root node to any leaf node in the tree.
+     *
+     * For example:
+     * Given the below binary tree,
+     *
+     *      1
+     *     / \
+     *    2   3
+     *   / \   \
+     *  4   7   5
+     *
+     * Return 10.
+     */
 
     /**
      * Approach: In order to find the path with the highest sum from a given node, we need to compare the
@@ -54,6 +55,25 @@ public class BinaryTreeMaxPathSum {
         return Math.max(leftSum, rightSum);
     }
 
+
+    /**
+     * Given a binary tree, find the maximum path sum.
+     *
+     * For this problem, a path is defined as any sequence of nodes from some starting node to any node in the tree along
+     * the parent-child connections. The path must contain at least one node and does not need to go through the root.
+     *
+     * For example:
+     * Given the below binary tree,
+     *
+     *      1
+     *     / \
+     *    2   3
+     *   / \   \
+     *  4   7   5
+     *
+     * Return 18 (7+2+1+3+5).
+     */
+
     /** global variable that is updated at each sub tree level */
     static int maxTreeSum = Integer.MIN_VALUE;
 
@@ -74,19 +94,10 @@ public class BinaryTreeMaxPathSum {
      *
      *  return Max(left sum, right sum) + current node value // float max child + current node value to parent
      *
-     * @param root
+     * @param currentNode
      * @return
      */
-    public static int maxPathSum(TreeNode root) {
-        if (root == null) {
-            return 0;
-        }
-
-        return recurseHelper(root);
-
-    }
-
-    public static int recurseHelper(TreeNode currentNode) {
+    public static int maxPathSum(TreeNode currentNode) {
         /** Reached end of tree, max sum till now is 0 */
         if (currentNode == null) {
             return 0;
@@ -94,8 +105,8 @@ public class BinaryTreeMaxPathSum {
         /** Calculate max left child path and max right child path. If path sum is less than 0, no need to
          * float it up
          */
-        int leftSum = Math.max(0, recurseHelper(currentNode.left));
-        int rightSum = Math.max(0, recurseHelper(currentNode.right));
+        int leftSum = Math.max(0, maxPathSum(currentNode.left));
+        int rightSum = Math.max(0, maxPathSum(currentNode.right));
 
         /** check if the current sub tree sub is greater than global max */
         maxTreeSum = Math.max(maxTreeSum, leftSum + rightSum + currentNode.val);
